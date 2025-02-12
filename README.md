@@ -49,12 +49,13 @@ project-folder/
 
 ```batch
 @echo off
-mkdir output_videos
-for %%f in (input_videos\*.mp4) do (
-    ffmpeg -i "intro.mp4" -i "input_videos\%%f" -i "outro.mp4" -filter_complex "[0:v:0][0:a:0][1:v:0][1:a:0][2:v:0][2:a:0]concat=n=3:v=1:a=1[outv][outa]" -map "[outv]" -map "[outa]" "output_videos\%%~nf_final.mp4"
-    echo Processed: %%f
+set intro=intro.mp4
+set outro=outro.mp4
+for %%f in (*.mp4) do (
+    if NOT "%%f"=="%intro%" if NOT "%%f"=="%outro%" (
+        ffmpeg -i "%intro%" -i "%%f" -i "%outro%" -filter_complex "[0:v:0][0:a:0][1:v:0][1:a:0][2:v:0][2:a:0]concat=n=3:v=1:a=1[outv][outa]" -map "[outv]" -map "[outa]" "output_%%f"
+    )
 )
-echo 🎉 All videos processed!
 ```
 
 3️⃣ **Save the file as** `script.bat` (make sure it’s not `.txt`).  
