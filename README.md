@@ -4,7 +4,7 @@
 This script helps you **add an intro and outro** to multiple videos **automatically**. Instead of manually editing each video, this tool does it **all at once** using **FFmpeg**! 🚀  
 
 ## 🛠 What You Need  
-✅ A **Windows computer**  
+✅ A **Windows computer** (or literally any OS but you have to check how it works there, pretty sure it is the same if not easier) 
 ✅ **FFmpeg installed** (It’s a free video editing tool)  
 ✅ Your **intro, main videos, and outro**  
 
