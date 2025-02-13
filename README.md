@@ -106,7 +106,8 @@ for %%F in (resized_videos\*_resized.mp4) do (
 
 echo All videos processed with intro and outro.
 pause
----
+```
+
 
 ## 🎥 Who Is This For?  
 ✅ YouTubers  
