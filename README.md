@@ -76,8 +76,36 @@ for %%f in (*.mp4) do (
 🔹 **Videos don’t have the intro/outro?**  
    - Ensure `intro.mp4`, `outro.mp4`, and the videos are in the correct folders.  
 🔹 **Script won’t run?**  
-   - Right-click `script.bat` → **Run as Administrator**  
+   - Right-click `script.bat` → **Run as Administrator**
+🔹 **Video has diferrent scales and resolution?**
+   - Paste this
+```batch
+@echo off
 
+REM Path to FFmpeg
+set FFmpeg=ffmpeg
+
+REM Create output folder
+if not exist resized_videos mkdir resized_videos
+
+REM Loop through all MP4 files in the folder
+for %%F in (*.mp4) do (
+    echo Resizing %%F...
+    %FFmpeg% -i "%%F" -vf "scale=1920:1080,setsar=1:1" -c:v libx264 -crf 23 -preset fast -c:a aac -b:a 192k "resized_videos\\%%~nF_resized.mp4"
+)
+
+echo All videos resized.
+pause
+
+REM Now add intro and outro
+if not exist output_videos mkdir output_videos
+for %%F in (resized_videos\*_resized.mp4) do (
+    echo Adding intro and outro to %%F...
+    %FFmpeg% -i "intro.mp4" -i "%%F" -i "outro.mp4" -filter_complex "[0:v:0][0:a:0][1:v:0][1:a:0][2:v:0][2:a:0]concat=n=3:v=1:a=1[outv][outa]" -map "[outv]" -map "[outa]" "output_videos\\%%~nF_final.mp4"
+)
+
+echo All videos processed with intro and outro.
+pause
 ---
 
 ## 🎥 Who Is This For?  
